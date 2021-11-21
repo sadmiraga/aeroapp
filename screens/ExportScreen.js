@@ -21,11 +21,26 @@ export default class ExportScreen extends React.Component{
 
 
 
-    export($productID,$exportValue){
-      Alert.alert($productID);
+    export(){
+      
+      fetch('http://aeropolyplast.eu/api/export', {
 
+        'method': 'POST',
+        'headers': {
+          'Accept':'application/json',
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          'id': this.state.productID,
+          'vrednostIzvoza': this.state.exportValue,
+        })
 
+      })
 
+      this.setState({
+        exportValue: 0,
+      })
+      
     }
 
       
@@ -49,10 +64,10 @@ export default class ExportScreen extends React.Component{
                   underlineColorAndroid='transparent'
                   onChangeText={(text) => this.setState({ exportValue: text })}
                   ref={component => this._textInput = component}
-                  value={this.state.exportValue}
+                  value={this.state.exportValue.toString()}
             />
 
-              <TouchableOpacity onPress={() => this.export(this.state.productID, this.state.exportValue)}>
+              <TouchableOpacity onPress={() => this.export()}>
                         <Text style={styles.posaljiDugme}> IZVOZ </Text>
               </TouchableOpacity>
 

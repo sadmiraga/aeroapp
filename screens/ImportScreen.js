@@ -26,23 +26,25 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 
     //SLANJE PODATAKA 
-    posalji($naziv,$ident,$zaloga,$stevilkaNarocila,$lokacija1,$lokacija2,$lokacija3){
+    posalji(){
 
-      fetch('http://127.0.0.1:8000/api/import',{
-        method:'POST',
-        headers:{
-          'Accept': 'application/json',
+      fetch('http://aeropolyplast.eu/api/import', {
+
+        'method': 'POST',
+        'headers': {
+          'Accept':'application/json',
           'Content-Type': 'application/json',
         },
-        body:JSON.stringify({
-          'naziv':$naziv,
-          'ident':$ident,
-          'zaloga':$zaloga,
-          'stevilkaNarocila':$stevilkaNarocila,
-          'lokacija1':$lokacija1,
-          'lokacija2':$lokacija2,
-          'lokacija3':$lokacija3,
+        body: JSON.stringify({
+          'naziv': this.state.naziv,
+          'ident': this.state.ident,
+          'zaloga': this.state.zaloga,
+          'stevilkaNarocila': this.state.stevilkaNarocila,
+          'lokacija1': this.state.lokacija1,
+          'lokacija2': this.state.lokacija2,
+          'lokacija3': this.state.lokacija3,
         })
+
       })
 
       this.setState({
@@ -153,7 +155,7 @@ import { ScrollView } from 'react-native-gesture-handler';
               </View>
 
 
-              <TouchableOpacity onPress={() => this.posalji(this.state.naziv, this.state.ident,this.state.zaloga,this.state.stevilkaNarocila,this.state.lokacija1,this.state.lokacija1,this.state.lokacija2,this.state.lokacija3)}>
+              <TouchableOpacity onPress={() => this.posalji()}>
                         <Text style={styles.posaljiDugme}> UVOZ </Text>
               </TouchableOpacity>
 
