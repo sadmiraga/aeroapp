@@ -6,6 +6,8 @@ import { Text, View,Button, TextInput,KeyboardAvoidingView,AsyncStorage,StyleShe
   Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+import { Input } from 'react-native-elements';
+
 
   export default class ImportScreen extends React.Component{
 

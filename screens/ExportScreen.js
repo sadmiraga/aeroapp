@@ -49,10 +49,10 @@ export default class ExportScreen extends React.Component{
         
         <ScrollView>
           <View style={styles.ExportHeader}>
-          <Text>{'Naziv: '}{this.props.route.params.naziv}</Text>
-          <Text>{'Ident: '}{this.props.route.params.ident}</Text>
-          <Text>{'Lokacija: '}{this.props.route.params.lokacja1}{this.props.route.params.lokacja2}{this.props.route.params.lokacja3}</Text>
-          <Text>{'Zaloga: '}{this.props.route.params.zaloga}</Text>
+            <Text style={styles.exportHeaderText}>{'Naziv: '}{this.props.route.params.naziv}</Text>
+            <Text style={styles.exportHeaderText}>{'Ident: '}{this.props.route.params.ident}</Text>
+            <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacja1}{this.props.route.params.lokacja2}{this.props.route.params.lokacja3}</Text>
+            <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.props.route.params.zaloga}</Text>
           </View>
 
           <View style={styles.exportFormContainer}>
@@ -119,6 +119,19 @@ const styles = StyleSheet.create({
     borderWidth:1,
 
 },
+
+ExportHeader:{
+  width:'80%',
+  marginLeft:'10%',
+  marginRight:'10%',
+
+},
+
+exportHeaderText:{
+  textAlign:'center',
+  borderBottomWidth:1,
+  marginTop:'3%',
+}
   
 });
 

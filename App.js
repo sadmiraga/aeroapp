@@ -18,8 +18,8 @@ const ProductStack = createStackNavigator();
 function ProductStackScreen(){
   return (
     <ProductStack.Navigator>
-      <ProductStack.Screen name="Home" component={HomeScreen}/>
-      <ProductStack.Screen name="Export" component={ExportScreen} initialParams={{ id:null,naziv:null,ident:null}} />
+      <ProductStack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
+      <ProductStack.Screen name="Export" component={ExportScreen} options={{headerShown:false}}  />
     </ProductStack.Navigator>
   );
 }
@@ -35,8 +35,10 @@ export default function App() {
         <Tab.Screen
           name="IZDELKI"
           component={ProductStackScreen}
+          
           options={{
             tabBarLabel: 'IZDELKI',
+            headerShown:false,
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="cube-outline" color={color} size={size} />
             ),
@@ -48,6 +50,7 @@ export default function App() {
           component={ImportScreen}
           options={{
             tabBarLabel: 'UVOZ',
+            headerShown:false,
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="add-outline" color={color} size={size} />
             ),

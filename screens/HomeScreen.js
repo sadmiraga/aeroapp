@@ -1,7 +1,17 @@
 import React, {useState,useEffect} from "react";
-import {StyleSheet, Text,View, ScrollView,SafeAeraView,FlatList,ActivityIndicator,TouchableOpacity,Navigation} from "react-native";
+                        
+import {StyleSheet, Text,View, ScrollView,SafeAeraView,FlatList,ActivityIndicator,TouchableOpacity,Navigation,KeyboardAvoidingView,TextInput, Alert} from "react-native";
+
+import { Ionicons } from '@expo/vector-icons';
+
+
+import { SearchBar,ListItem ,Icon} from 'react-native-elements';
+
 
 const productsURL = "http://aeropolyplast.eu/api/displayAll";
+
+
+
 
 export default class HomeScreen extends React.Component {
 
@@ -12,10 +22,19 @@ export default class HomeScreen extends React.Component {
         this.state ={
             isLoading: true,
             dataSource: null,
+            filteredData: null,
+            searchQuery: "",
         }
     }
 
+
+
+
     componentDidMount(){
+        this.makeRemoteRequest();
+    }
+
+    makeRemoteRequest = () => {
 
         return fetch('http://aeropolyplast.eu/api/displayAll')
         .then( (response) => response.json() ) 
@@ -30,9 +49,22 @@ export default class HomeScreen extends React.Component {
         .catch((error) => {
             console.log(error)
         });
+    } //end of custom remote request 
 
 
-    }
+    search = (searchQuery) => {
+
+
+        this.setState({searchQuery: searchQuery});
+    
+        let filteredData = this.state.dataSource.filter(function (item) {
+          return item.naziv.includes(searchQuery.toLowerCase()) || item.stevilkaNarocila.includes(searchQuery.toLowerCase()) || item.ident.includes(searchQuery.toLowerCase());
+        });
+    
+        this.setState({filteredData: filteredData});
+
+
+      };
 
     render() {
 
@@ -44,38 +76,54 @@ export default class HomeScreen extends React.Component {
                 </View>
             )
         } else{
-
-            let products = this.state.dataSource.map((val,key)=> {
-
-                return <View key={key} style={styles.item}>
-                            <Text style={styles.itemText}>{val.naziv}</Text>
-                            <Text style={styles.itemText}>{val.ident}</Text>
-                            <Text style={styles.itemText}>{val.stevilkaNarocila}</Text>
-                            <Text style={styles.itemText}>{val.lokacija1}{' '}{val.lokacija2}{' '}{val.lokacija3}</Text>
-                            <Text style={styles.itemText}>{val.zaloga}</Text>
-                            <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Export', { id: val.id.toString(), naziv: val.naziv,ident:val.ident,stevilkaNarocila:val.stevilkaNarocilla,lokacija1:val.lokacija1,lokacija2:val.lokacija2, lokacija3:val.lokacija3,zaloga:val.zaloga })}>
-                                <Text>export</Text>
-                            </TouchableOpacity>
-                       </View>
-            });
-
-
             return (
+                <View style={{flex: 1}}>
 
-                
+                <SearchBar placeholder="Type Here..." 
+                            lightTheme  
+                            onChangeText={this.search} 
+                            value={this.state.searchQuery}
+                            containerStyle={{backgroundColor: 'transparent'}}
+                            inputContainerStyle={{backgroundColor: 'white'}} />
 
 
-                <ScrollView>
+
+
                     <View style={styles.itemsHeader}>
                             <Text style={styles.itemText}>{'Naziv'}</Text>
                             <Text style={styles.itemText}>{'Ident'}</Text>
                             <Text style={styles.itemText}>{'st. narocila'}</Text>
                             <Text style={styles.itemText}>{'Lokacija'}</Text>
                             <Text style={styles.itemText}>{'Zaloga'}</Text>
-                       </View>
-                {products}
-                </ScrollView >
+                            <Text style={styles.itemText}>{'  '}</Text>
+                    </View>
+
+                    
+
+                    <FlatList
+                        //data={this.state.dataSource}
+                        data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.state.dataSource}
+
+                        keyExtractor={item => item.id}
+                        renderItem={({ item }) => (
+ 
+                            <View style={styles.item}>
+                                <Text  style={styles.itemText}>{item.naziv}</Text>
+                                <Text  style={styles.itemText}>{item.ident}</Text>
+                                <Text  style={styles.itemText}>{item.stevilkaNarocila}</Text>
+                                <Text style={styles.itemText}>{item.lokacija1}{' '}{item.lokacija2}{' '}{item.lokacija3}</Text>
+                                <Text style={styles.itemText}>{item.zaloga}</Text>
+
+                                <TouchableOpacity onPress={() => this.props.navigation.navigate
+                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocilla,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga })}>
+                                    <Icon name='download-outline' type='ionicon' color='#5d5d5d' />
+                                </TouchableOpacity> 
+
+                            </View>
+
+                        )}
+                        />
+                </View >
             );
 
         } 
@@ -95,13 +143,15 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         flexDirection:'row',
-        marginBottom:'3%',
         justifyContent:'space-evenly',
         backgroundColor: 'transparent',
-        borderWidth:1,
+        borderTopWidth:1,
         borderColor:'#5d5d5d',
-        borderRadius:20,
-        marginTop:'20%',
+        height:80,
+        marginRight:'2%',
+        marginLeft:'2%',
+        
+        
     
     },
 
@@ -114,5 +164,26 @@ const styles = StyleSheet.create({
         flexDirection:'row',
         justifyContent:'space-evenly',
     },
+
+    unosTexta: {
+        backgroundColor: '#FFFFFF',
+        width: '80%',
+        marginRight: '20%',
+        borderWidth:1,
+        borderColor: 'grey',
+        borderRadius:10,
+        height:40,
+        textAlign:'center',
+        marginTop:'10%',
+        marginBottom:'20%'
+    },
+
+    searchButton:{
+        backgroundColor:'green',
+        color:'white',
+        width:'20%',
+        marginLeft:'80%',
+        
+    }
     
 });
