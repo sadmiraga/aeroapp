@@ -6,6 +6,8 @@ import { Text, View,Button, TextInput,KeyboardAvoidingView,AsyncStorage,StyleShe
   Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 
+console.disableYellowBox = true;
+
 import { Input } from 'react-native-elements';
 
 
@@ -27,38 +29,63 @@ import { Input } from 'react-native-elements';
     }
 
 
+    successNotification(){
+      Alert.alert(
+        'Uspešno',
+        "Uspešno ste dodali izdelek: \n naziv = "+this.state.naziv
+        +"\n ident = "+this.state.ident
+        +"\n stevilka narocila = "+this.state.stevilkaNarocila
+        +"\n zaloga = "+this.state.zaloga
+        +"\n lokacija = "+this.state.lokacija1+" "+this.state.lokacija2+" "+this.state.lokacija3,
+        [
+            { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
+            //MeHome
+        ],
+        { cancelable: false },
+      );
+    }   
+ 
+
     //SLANJE PODATAKA 
     posalji(){
 
-      fetch('http://aeropolyplast.eu/api/import', {
 
-        'method': 'POST',
-        'headers': {
-          'Accept':'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          'naziv': this.state.naziv,
-          'ident': this.state.ident,
-          'zaloga': this.state.zaloga,
-          'stevilkaNarocila': this.state.stevilkaNarocila,
-          'lokacija1': this.state.lokacija1,
-          'lokacija2': this.state.lokacija2,
-          'lokacija3': this.state.lokacija3,
-        })
+      if(this.state.lokacija1 == 0 ||  this.state.lokacija2 == 0 || this.state.lokacija3 == 0 || this.state.stevilkaNarocila == '' || this.state.zaloga == '' || this.state.ident == '' || this.state.naziv == ''){
+        Alert.alert('Izberite vse podatke pred uvozom podatkov');
+      } else {
 
-      })
+          fetch('http://aeropolyplast.eu/api/import', {
+            'method': 'POST',
+            'headers': {
+              'Accept':'application/json',
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              'naziv': this.state.naziv,
+              'ident': this.state.ident,
+              'zaloga': this.state.zaloga,
+              'stevilkaNarocila': this.state.stevilkaNarocila,
+              'lokacija1': this.state.lokacija1,
+              'lokacija2': this.state.lokacija2,
+              'lokacija3': this.state.lokacija3,
+            })
+          })
 
-      this.setState({
-        naziv: '',
-        ident: '',
-        zaloga: '',
-        stevilkaNarocila: '',
-        lokacija1: '',
-        lokacija2: '',
-        lokacija3: '',
+           
+          this.successNotification();
 
-      })
+          this.setState({
+            naziv: '',
+            ident: '',
+            zaloga: '',
+            stevilkaNarocila: '',
+            lokacija1: '',
+            lokacija2: '',
+            lokacija3: '',
+
+          })
+
+      }
 
     }
 
@@ -112,11 +139,21 @@ import { Input } from 'react-native-elements';
                 placeholder="LOKACIJA 1"
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija1: ItemValue })}
+                style={{ color: '#5d5d5d'}}
               >
+                <Picker.Item label="Izberite prvo lokacijo" value="0" />
                 <Picker.Item label="I" value="I" />
                 <Picker.Item label="II" value="II" />
                 <Picker.Item label="III" value="III" />
-                <Picker.Item label="IV" value="IV" />
+                <Picker.Item label="IV" value="IV" /> 
+                <Picker.Item label="V" value="V" />
+                <Picker.Item label="VI" value="VI" />
+                <Picker.Item label="VII" value="VII" />
+                <Picker.Item label="VIII" value="VIII" />
+                <Picker.Item label="IX" value="IV" />
+                <Picker.Item label="X" value="X" />
+                <Picker.Item label="XI" value="XI" />
+                <Picker.Item label="XII" value="XII" />
               </Picker>
               </View>
 
@@ -127,8 +164,11 @@ import { Input } from 'react-native-elements';
                 placeholder="LOKACIJA 2"
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija2: ItemValue })}
+                style={{ color: '#5d5d5d'}}
                 >
-                <Picker.Item label="1" value="1" />
+                
+                <Picker.Item label="Izberite drugo lokacijo" value="0" />
+                <Picker.Item selected  label="1" value="1" />
                 <Picker.Item label="2" value="2" />
                 <Picker.Item label="3" value="3" />
                 <Picker.Item label="4" value="4" />
@@ -141,6 +181,14 @@ import { Input } from 'react-native-elements';
                 <Picker.Item label="11" value="11" />
                 <Picker.Item label="12" value="12" />
                 <Picker.Item label="13" value="13" />
+                <Picker.Item label="14" value="14" />
+                <Picker.Item label="15" value="15" />
+                <Picker.Item label="16" value="16" />
+                <Picker.Item label="17" value="17" />
+                <Picker.Item label="18" value="18" />
+                <Picker.Item label="19" value="19" />
+                <Picker.Item label="20" value="20" />
+                <Picker.Item label="21" value="21" />
               </Picker>
               </View>
 
@@ -150,9 +198,17 @@ import { Input } from 'react-native-elements';
                 placeholder="LOKACIJA 3"
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija3: ItemValue })}
+                style={{ color: '#5d5d5d'}}
                 >
+
+                <Picker.Item label="Izberite tretjo lokacijo" value="0" />
                 <Picker.Item label="a" value="a" />
                 <Picker.Item label="b" value="b" />
+                <Picker.Item label="c" value="c" />
+                <Picker.Item label="d" value="d" />
+                <Picker.Item label="e" value="e" />
+                <Picker.Item label="f" value="f" />
+                <Picker.Item label="g" value="g" />
               </Picker>
               </View>
 

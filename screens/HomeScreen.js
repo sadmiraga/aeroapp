@@ -1,22 +1,9 @@
-import React, {useState,useEffect} from "react";
-                        
-import {StyleSheet, Text,View, ScrollView,SafeAeraView,FlatList,ActivityIndicator,TouchableOpacity,Navigation,KeyboardAvoidingView,TextInput, Alert} from "react-native";
-
-import { Ionicons } from '@expo/vector-icons';
-
-
+import React, {useState,useEffect} from "react";                        
+import {StyleSheet, Text,View, ScrollView,SafeAeraView,FlatList,ActivityIndicator,TouchableOpacity,Navigation,KeyboardAvoidingView,TextInput, Alert,RefreshControl} from "react-native";
 import { SearchBar,ListItem ,Icon} from 'react-native-elements';
 
 
-const productsURL = "http://aeropolyplast.eu/api/displayAll";
-
-
-
-
 export default class HomeScreen extends React.Component {
-
-
-
     constructor(props){
         super(props);
         this.state ={
@@ -27,10 +14,8 @@ export default class HomeScreen extends React.Component {
         }
     }
 
-
-
-
     componentDidMount(){
+        this.onRefresh();
         this.makeRemoteRequest();
     }
 
@@ -53,18 +38,17 @@ export default class HomeScreen extends React.Component {
 
 
     search = (searchQuery) => {
-
-
         this.setState({searchQuery: searchQuery});
-    
         let filteredData = this.state.dataSource.filter(function (item) {
           return item.naziv.includes(searchQuery.toLowerCase()) || item.stevilkaNarocila.includes(searchQuery.toLowerCase()) || item.ident.includes(searchQuery.toLowerCase());
         });
-    
         this.setState({filteredData: filteredData});
-
-
       };
+
+
+      onRefresh = () => {
+        this.makeRemoteRequest();
+      }
 
     render() {
 
@@ -79,31 +63,27 @@ export default class HomeScreen extends React.Component {
             return (
                 <View style={{flex: 1}}>
 
-                <SearchBar placeholder="Type Here..." 
+                <SearchBar placeholder="Iskanje..." 
                             lightTheme  
                             onChangeText={this.search} 
                             value={this.state.searchQuery}
                             containerStyle={{backgroundColor: 'transparent'}}
                             inputContainerStyle={{backgroundColor: 'white'}} />
 
-
-
-
                     <View style={styles.itemsHeader}>
                             <Text style={styles.itemText}>{'Naziv'}</Text>
                             <Text style={styles.itemText}>{'Ident'}</Text>
-                            <Text style={styles.itemText}>{'st. narocila'}</Text>
+                            <Text style={styles.itemText}>{'st.narocila'}</Text>
                             <Text style={styles.itemText}>{'Lokacija'}</Text>
                             <Text style={styles.itemText}>{'Zaloga'}</Text>
-                            <Text style={styles.itemText}>{'  '}</Text>
+                            <Text style={styles.itemText}>{'    '}</Text>
                     </View>
-
-                    
 
                     <FlatList
                         //data={this.state.dataSource}
                         data={this.state.filteredData && this.state.filteredData.length > 0 ? this.state.filteredData : this.state.dataSource}
-
+                        onRefresh={() => this.onRefresh()}
+                        refreshing={false}
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
  
@@ -150,19 +130,21 @@ const styles = StyleSheet.create({
         height:80,
         marginRight:'2%',
         marginLeft:'2%',
-        
-        
-    
     },
+
+
 
     itemText:{
         flex: 3,
-    fontSize: 15,
+        fontSize: 15,
+        textAlign:'center',
     },
 
     itemsHeader:{
         flexDirection:'row',
         justifyContent:'space-evenly',
+        marginLeft:'2%',
+        
     },
 
     unosTexta: {

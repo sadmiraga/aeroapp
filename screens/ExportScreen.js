@@ -19,6 +19,20 @@ export default class ExportScreen extends React.Component{
   }
 
 
+    successNotification = () => {
+      
+      Alert.alert(
+        'Uspešno',
+        "Uspešno ste posodobili zalogo za izdelek: "+this.props.route.params.naziv,
+        [
+            { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
+            //MeHome
+        ],
+        { cancelable: false },
+      );
+      
+    }
+
 
 
     export(){
@@ -40,6 +54,8 @@ export default class ExportScreen extends React.Component{
       this.setState({
         exportValue: 0,
       })
+
+      this.successNotification();
       
     }
 
@@ -51,7 +67,7 @@ export default class ExportScreen extends React.Component{
           <View style={styles.ExportHeader}>
             <Text style={styles.exportHeaderText}>{'Naziv: '}{this.props.route.params.naziv}</Text>
             <Text style={styles.exportHeaderText}>{'Ident: '}{this.props.route.params.ident}</Text>
-            <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacja1}{this.props.route.params.lokacja2}{this.props.route.params.lokacja3}</Text>
+            <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacija1}{' '}{this.props.route.params.lokacija2}{' '}{this.props.route.params.lokacija3}</Text>
             <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.props.route.params.zaloga}</Text>
           </View>
 
@@ -94,7 +110,7 @@ const styles = StyleSheet.create({
     marginLeft: '15%',
     marginRight: '15%',
     borderWidth:1,
-    borderColor: 'grey',
+    borderColor: '#5d5d5d',
     borderRadius:10,
     height:40,
     textAlign:'center',
@@ -124,12 +140,17 @@ ExportHeader:{
   width:'80%',
   marginLeft:'10%',
   marginRight:'10%',
-
+  backgroundColor:'white',
+  borderRadius:20,
+  marginTop:'10%',
+  paddingTop:'5%',
+  paddingBottom:'5%',
+  borderWidth:1,
+  borderColor: '#5d5d5d',
 },
 
 exportHeaderText:{
   textAlign:'center',
-  borderBottomWidth:1,
   marginTop:'3%',
 }
   
