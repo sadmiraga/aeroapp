@@ -76,7 +76,6 @@ export default class HomeScreen extends React.Component {
                             <Text style={styles.itemText}>{'st.narocila'}</Text>
                             <Text style={styles.itemText}>{'Lokacija'}</Text>
                             <Text style={styles.itemText}>{'Zaloga'}</Text>
-                            <Text style={styles.itemText}>{'    '}</Text>
                     </View>
 
                     <FlatList
@@ -87,19 +86,16 @@ export default class HomeScreen extends React.Component {
                         keyExtractor={item => item.id}
                         renderItem={({ item }) => (
  
+                            <TouchableOpacity onPress={() => this.props.navigation.navigate
+                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocilla,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga,kolicina:item.kolicina })}>
                             <View style={styles.item}>
                                 <Text  style={styles.itemText}>{item.naziv}</Text>
                                 <Text  style={styles.itemText}>{item.ident}</Text>
                                 <Text  style={styles.itemText}>{item.stevilkaNarocila}</Text>
                                 <Text style={styles.itemText}>{item.lokacija1}{' '}{item.lokacija2}{' '}{item.lokacija3}</Text>
-                                <Text style={styles.itemText}>{item.zaloga}</Text>
-
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocilla,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga })}>
-                                    <Icon name='download-outline' type='ionicon' color='#5d5d5d' />
-                                </TouchableOpacity> 
-
+                                <Text style={styles.itemText}>{item.zaloga}</Text>    
                             </View>
+                            </TouchableOpacity> 
 
                         )}
                         />

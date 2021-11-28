@@ -85,7 +85,7 @@ export default class IdentsScreen extends React.Component {
  
                             <View style={styles.item}>
                                 <Text  style={styles.itemText}>{item.naziv}</Text>
-                                <Text  style={styles.itemText}>{item.id}</Text>
+                                <Text  style={styles.itemText}>{item.zaloga}</Text>
                             
 
                             </View>

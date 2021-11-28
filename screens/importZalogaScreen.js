@@ -9,14 +9,17 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {Icon} from 'react-native-elements';
 
 
+
 export default class ExportScreen extends React.Component{
 
   constructor(props){
     super(props);
     this.state={
       productID: this.props.route.params.id,
-      exportValue: 0,
+      
+      importValue: 0,
       isLoading: true,
+
     }
   }
 
@@ -24,7 +27,7 @@ export default class ExportScreen extends React.Component{
     successNotification = () => {
       Alert.alert(
         'Uspešno',
-        "Uspešno ste posodobili zalogo za izdelek: "+this.props.route.params.naziv,
+        "Uspešno ste posodobili zalogo za izdelek: ",
         [
             { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
             //MeHome
@@ -37,7 +40,7 @@ export default class ExportScreen extends React.Component{
 
 
     export(){
-      fetch('http://aeropolyplast.eu/api/export', {
+      fetch('http://aeropolyplast.eu/api/import', {
 
         'method': 'POST',
         'headers': {
@@ -46,12 +49,12 @@ export default class ExportScreen extends React.Component{
         },
         body: JSON.stringify({
           'id': this.state.productID,
-          'vrednostIzvoza': this.state.exportValue,
+          'vrenostUvoza': this.state.importValue,
         })
 
       })
       this.setState({
-        exportValue: 0,
+        importValue: 0,
       })
       this.successNotification();
     }
@@ -61,48 +64,21 @@ export default class ExportScreen extends React.Component{
       return (
         
         <ScrollView>
-
-          <View style={styles.buttonsContainer}>
-
-          <TouchableOpacity onPress={() => this.export()}>
-                        <View style={styles.button}><Icon name='trash-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
-
-          
-              <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Import', { id: this.state.productID,naziv:this.state.naziv })}>
-                        <View style={styles.button}><Icon name='add-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => this.export()}>
-                        <View style={styles.button}><Icon name='create-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
-          </View>
-
-          <View style={styles.ExportHeader}>
-            <Text style={styles.exportHeaderText}>{'Naziv: '}{this.props.route.params.naziv}</Text>
-            <Text style={styles.exportHeaderText}>{'Ident: '}{this.props.route.params.ident}</Text>
-            <Text style={styles.exportHeaderText}>{'Kolicina: '}{this.props.route.params.kolicina}</Text>
-            <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacija1}{' '}{this.props.route.params.lokacija2}{' '}{this.props.route.params.lokacija3}</Text>
-            <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.props.route.params.zaloga}</Text>
-          </View>
-
           <View style={styles.exportFormContainer}>
-
             <TextInput style={styles.unosZaloge}
                   multiline={false}
                   placeholder='Vrednost izvoza'
                   keyboardType='numeric'
                   underlineColorAndroid='transparent'
-                  onChangeText={(text) => this.setState({ exportValue: text })}
+                  onChangeText={(text) => this.setState({ importValue: text })}
                   ref={component => this._textInput = component}
-                  value={this.state.exportValue.toString()}
+                  value={this.state.importValue.toString()}
             />
 
             
 
               <TouchableOpacity onPress={() => this.export()}>
-                        <Text style={styles.posaljiDugme}> IZVOZ </Text>
+                        <Text style={styles.posaljiDugme}> UVOZ </Text>
               </TouchableOpacity>
 
           </View>
@@ -115,6 +91,10 @@ export default class ExportScreen extends React.Component{
 
 
 const styles = StyleSheet.create({
+
+    exportFormContainer:{
+        marginTop:'50%',
+    },
 
   button:{
     backgroundColor:'white',

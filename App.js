@@ -11,6 +11,7 @@ import ImportScreen from './screens/ImportScreen';
 import ExportScreen from './screens/ExportScreen';
 
 import IdentsScreen from './screens/IdentsScreen';
+import importZalogaScreen from './screens/importZalogaScreen';
 
 import { createStackNavigator, StackNavigator } from '@react-navigation/stack';
 
@@ -22,6 +23,7 @@ function ProductStackScreen(){
     <ProductStack.Navigator>
       <ProductStack.Screen name="Home" component={HomeScreen} options={{headerShown:false}}/>
       <ProductStack.Screen name="Export" component={ExportScreen} options={{headerShown:false}}  />
+      <ProductStack.Screen name="Import" component={importZalogaScreen} options={{headerShown:false}}/>
     </ProductStack.Navigator>
   );
 }
