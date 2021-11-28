@@ -10,6 +10,8 @@ import HomeScreen from './screens/HomeScreen';
 import ImportScreen from './screens/ImportScreen';
 import ExportScreen from './screens/ExportScreen';
 
+import IdentsScreen from './screens/IdentsScreen';
+
 import { createStackNavigator, StackNavigator } from '@react-navigation/stack';
 
 
@@ -31,6 +33,8 @@ export default function App() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
+
+    
                 
         <Tab.Screen
           name="IZDELKI"
@@ -41,6 +45,18 @@ export default function App() {
             headerShown:false,
             tabBarIcon: ({ color, size }) => (
               <Ionicons name="cube-outline" color={color} size={size} />
+            ),
+          }}
+        />
+
+        <Tab.Screen
+          name="IDENTI"
+          component={IdentsScreen}
+          options={{
+            tabBarLabel: 'IDENTI',
+            headerShown:false,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="albums-outline" color={color} size={size} />
             ),
           }}
         />

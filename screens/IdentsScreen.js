@@ -3,7 +3,7 @@ import {StyleSheet, Text,View, ScrollView,SafeAeraView,FlatList,ActivityIndicato
 import { SearchBar,ListItem ,Icon} from 'react-native-elements';
 
 
-export default class HomeScreen extends React.Component {
+export default class IdentsScreen extends React.Component {
     constructor(props){
         super(props);
         this.state ={
@@ -21,7 +21,7 @@ export default class HomeScreen extends React.Component {
 
     makeRemoteRequest = () => {
 
-        return fetch('http://aeropolyplast.eu/api/displayAll')
+        return fetch('http://aeropolyplast.eu/api/idents')
         .then( (response) => response.json() ) 
         .then( (responseJson) => {
 
@@ -40,7 +40,7 @@ export default class HomeScreen extends React.Component {
     search = (searchQuery) => {
         this.setState({searchQuery: searchQuery});
         let filteredData = this.state.dataSource.filter(function (item) {
-          return item.naziv.includes(searchQuery.toLowerCase()) || item.stevilkaNarocila.includes(searchQuery.toLowerCase()) || item.ident.includes(searchQuery.toLowerCase());
+          return item.naziv.includes(searchQuery.toLowerCase());
         });
         this.setState({filteredData: filteredData});
       };
@@ -72,11 +72,7 @@ export default class HomeScreen extends React.Component {
 
                     <View style={styles.itemsHeader}>
                             <Text style={styles.itemText}>{'Naziv'}</Text>
-                            <Text style={styles.itemText}>{'Ident'}</Text>
-                            <Text style={styles.itemText}>{'st.narocila'}</Text>
-                            <Text style={styles.itemText}>{'Lokacija'}</Text>
                             <Text style={styles.itemText}>{'Zaloga'}</Text>
-                            <Text style={styles.itemText}>{'    '}</Text>
                     </View>
 
                     <FlatList
@@ -89,15 +85,8 @@ export default class HomeScreen extends React.Component {
  
                             <View style={styles.item}>
                                 <Text  style={styles.itemText}>{item.naziv}</Text>
-                                <Text  style={styles.itemText}>{item.ident}</Text>
-                                <Text  style={styles.itemText}>{item.stevilkaNarocila}</Text>
-                                <Text style={styles.itemText}>{item.lokacija1}{' '}{item.lokacija2}{' '}{item.lokacija3}</Text>
-                                <Text style={styles.itemText}>{item.zaloga}</Text>
-
-                                <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocilla,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga })}>
-                                    <Icon name='download-outline' type='ionicon' color='#5d5d5d' />
-                                </TouchableOpacity> 
+                                <Text  style={styles.itemText}>{item.id}</Text>
+                            
 
                             </View>
 

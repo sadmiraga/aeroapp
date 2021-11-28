@@ -24,6 +24,7 @@ import { Input } from 'react-native-elements';
         lokacija1: '',
         lokacija2: '',
         lokacija3: '',
+        kolicina: '',
         isLoading: true,
       }
     }
@@ -35,6 +36,7 @@ import { Input } from 'react-native-elements';
         "Uspešno ste dodali izdelek: \n naziv = "+this.state.naziv
         +"\n ident = "+this.state.ident
         +"\n stevilka narocila = "+this.state.stevilkaNarocila
+        +"\n zaloga = "+this.state.kolicina
         +"\n zaloga = "+this.state.zaloga
         +"\n lokacija = "+this.state.lokacija1+" "+this.state.lokacija2+" "+this.state.lokacija3,
         [
@@ -50,11 +52,11 @@ import { Input } from 'react-native-elements';
     posalji(){
 
 
-      if(this.state.lokacija1 == 0 ||  this.state.lokacija2 == 0 || this.state.lokacija3 == 0 || this.state.stevilkaNarocila == '' || this.state.zaloga == '' || this.state.ident == '' || this.state.naziv == ''){
+      if(this.state.lokacija1 == 0 ||  this.state.lokacija2 == 0 || this.state.lokacija3 == 0 || this.state.stevilkaNarocila == '' || this.state.zaloga == '' || this.state.ident == '' || this.state.naziv == '' || this.state.kolicina == ''){
         Alert.alert('Izberite vse podatke pred uvozom podatkov');
       } else {
 
-          fetch('http://aeropolyplast.eu/api/import', {
+          fetch('http://aeropolyplast.eu/api/newProduct', {
             'method': 'POST',
             'headers': {
               'Accept':'application/json',
@@ -68,6 +70,7 @@ import { Input } from 'react-native-elements';
               'lokacija1': this.state.lokacija1,
               'lokacija2': this.state.lokacija2,
               'lokacija3': this.state.lokacija3,
+              'kolicina': this.state.kolicina,
             })
           })
 
@@ -82,6 +85,7 @@ import { Input } from 'react-native-elements';
             lokacija1: '',
             lokacija2: '',
             lokacija3: '',
+            kolicina: '',
 
           })
 
@@ -131,6 +135,15 @@ import { Input } from 'react-native-elements';
                 onChangeText={(text) => this.setState({ stevilkaNarocila: text })}
                 ref={component => this._textInput = component}
                 value={this.state.stevilkaNarocila}
+              />
+
+              <TextInput style={styles.unosTexta}
+                multiline={false}
+                placeholder='KOLICINA'
+                underlineColorAndroid='transparent'
+                onChangeText={(text) => this.setState({ kolicina: text })}
+                ref={component => this._textInput = component}
+                value={this.state.kolicina}
               />
 
               <View style={styles.dropDownMeni}>

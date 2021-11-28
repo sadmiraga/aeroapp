@@ -20,7 +20,6 @@ export default class ExportScreen extends React.Component{
 
 
     successNotification = () => {
-      
       Alert.alert(
         'Uspešno',
         "Uspešno ste posodobili zalogo za izdelek: "+this.props.route.params.naziv,
@@ -36,7 +35,6 @@ export default class ExportScreen extends React.Component{
 
 
     export(){
-      
       fetch('http://aeropolyplast.eu/api/export', {
 
         'method': 'POST',
@@ -50,13 +48,10 @@ export default class ExportScreen extends React.Component{
         })
 
       })
-
       this.setState({
         exportValue: 0,
       })
-
       this.successNotification();
-      
     }
 
       
