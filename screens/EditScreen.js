@@ -5,15 +5,10 @@ import { Text, View,Button, TextInput,KeyboardAvoidingView,AsyncStorage,StyleShe
   TouchableOpacity,
   Keyboard } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
-
 console.disableYellowBox = true;
-
-import { Input } from 'react-native-elements';
-
+//import { Input } from 'react-native-elements';
 
   export default class EditScreen extends React.Component{
-
-
     constructor(props){
       super(props);
       this.state={
@@ -88,6 +83,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='NAZIV'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ naziv: text })}
                 ref={component => this._textInput = component}
                 value={this.state.naziv}
@@ -97,6 +93,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='IDENT'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ ident: text })}
                 ref={component => this._textInput = component}
                 value={this.state.ident}
@@ -107,6 +104,7 @@ import { Input } from 'react-native-elements';
                 placeholder='ZALOGA'
                 keyboardType='numeric'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ zaloga: text })}
                 ref={component => this._textInput = component}
                 value={this.state.zaloga}
@@ -117,6 +115,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='STEVILKA NAROCILA'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ stevilkaNarocila: text })}
                 ref={component => this._textInput = component}
                 value={this.state.stevilkaNarocila}
@@ -126,6 +125,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='KOLICINA'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ kolicina: text })}
                 ref={component => this._textInput = component}
                 value={this.state.kolicina}
@@ -223,9 +223,6 @@ import { Input } from 'react-native-elements';
         
       );
     }
-
-
-
   }
 
 
@@ -281,8 +278,6 @@ const styles = StyleSheet.create({
   container: {
       fontSize: 20,
   }
-
-
 });
 
 

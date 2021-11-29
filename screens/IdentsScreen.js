@@ -15,6 +15,11 @@ export default class IdentsScreen extends React.Component {
     }
 
     componentDidMount(){
+        this.focusListener = this.props.navigation.addListener('focus', () => { 
+            this.makeRemoteRequest();
+            }
+        );
+
         this.onRefresh();
         this.makeRemoteRequest();
     }
@@ -113,12 +118,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection:'row',
         justifyContent:'space-evenly',
-        backgroundColor: 'transparent',
-        borderTopWidth:1,
+        backgroundColor: 'white',
+        borderWidth:1,
         borderColor:'#5d5d5d',
+        borderRadius:10,
         height:80,
         marginRight:'2%',
         marginLeft:'2%',
+        marginBottom:'5%',
     },
 
 

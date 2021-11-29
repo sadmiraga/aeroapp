@@ -17,7 +17,8 @@ export default class ExportScreen extends React.Component{
     this.state={
       productID: this.props.route.params.id,
       naziv: this.props.route.params.naziv,
-      importValue: 0,
+      zaloga: this.props.route.params.zaloga,
+      importValue: '',
       isLoading: true,
 
     }
@@ -68,10 +69,13 @@ export default class ExportScreen extends React.Component{
           
 
           <View style={styles.exportFormContainer}>
-          <View style={styles.importHeader}><Text style={styles.headingText}>{this.state.naziv}</Text></View>
+          <View style={styles.importHeader}>
+            <Text style={styles.headingText}>{'naziv: '}{this.state.naziv}</Text>
+            <Text style={styles.headingText}>{'zaloga: '}{this.state.zaloga}</Text>
+          </View>
             <TextInput style={styles.unosZaloge}
                   multiline={false}
-                  placeholder='Vrednost izvoza'
+                  placeholder='Vrednost uvoza'
                   keyboardType='numeric'
                   underlineColorAndroid='transparent'
                   onChangeText={(text) => this.setState({ importValue: text })}
@@ -108,28 +112,9 @@ const styles = StyleSheet.create({
     borderWidth:1,
     borderRadius:10,
   },
-    exportFormContainer:{
-        marginTop:'50%',
-    },
-
-  button:{
-    backgroundColor:'white',
-    padding:'10%',
-    borderRadius:10,
-    borderWidth:1,
-    borderColor: '#5d5d5d',
-    
-
-  },  
-
-  buttonsContainer:{
-    display:'flex',
-    flexDirection:'row',
-    justifyContent:'space-evenly',
-    marginTop:'20%',    
-    width:'80%',
-    marginLeft:'10%',
-    marginRight:'10%',
+  
+  exportFormContainer:{
+      marginTop:'50%',
   },
 
   container: {
@@ -166,28 +151,12 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontSize:20,
     paddingTop:10,
-    borderColor:'white',
+    borderColor:'#5d5d5d',
     borderWidth:1,
 
 },
 
-ExportHeader:{
-  width:'80%',
-  marginLeft:'10%',
-  marginRight:'10%',
-  backgroundColor:'white',
-  borderRadius:20,
-  marginTop:'10%',
-  paddingTop:'5%',
-  paddingBottom:'5%',
-  borderWidth:1,
-  borderColor: '#5d5d5d',
-},
 
-exportHeaderText:{
-  textAlign:'center',
-  marginTop:'3%',
-}
   
 });
 

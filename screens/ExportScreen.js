@@ -9,13 +9,14 @@ import { ScrollView } from 'react-native-gesture-handler';
 import {Icon} from 'react-native-elements';
 
 
+
 export default class ExportScreen extends React.Component{
 
   constructor(props){
     super(props);
     this.state={
       productID: this.props.route.params.id,
-      exportValue: 0,
+      exportValue: '',
       isLoading: true,
     }
   }
@@ -116,6 +117,12 @@ export default class ExportScreen extends React.Component{
       );
     }
 
+
+    format($value){
+      return new Intl.NumberFormat('en-IN', {
+      }).format($value);
+    
+    }
       
     render(){
       return (
@@ -132,6 +139,7 @@ export default class ExportScreen extends React.Component{
                               ('Import', 
                               { id: this.state.productID,
                               naziv:this.props.route.params.naziv,
+                              zaloga:this.props.route.params.zaloga,
                               })}>
                       <View style={styles.button}><Icon name='add-outline' type='ionicon' color='#5d5d5d' /></View>
             </TouchableOpacity>
@@ -166,9 +174,13 @@ export default class ExportScreen extends React.Component{
                   placeholder='Vrednost izvoza'
                   keyboardType='numeric'
                   underlineColorAndroid='transparent'
-                  onChangeText={(text) => this.setState({ exportValue: text })}
                   ref={component => this._textInput = component}
+                  thousandSeparator={true}                                            
+                  onChangeText={(text) => this.setState({ exportValue: this.format(text) })}
                   value={this.state.exportValue.toString()}
+
+
+
             />
               <TouchableOpacity onPress={() => this.export()}>
                         <Text style={styles.posaljiDugme}> IZVOZ </Text>
@@ -239,7 +251,7 @@ const styles = StyleSheet.create({
     textAlign:'center',
     fontSize:20,
     paddingTop:10,
-    borderColor:'white',
+    borderColor:'#5d5d5d',
     borderWidth:1,
 
 },

@@ -14,17 +14,21 @@ export default class HomeScreen extends React.Component {
         }
     }
 
-    componentDidMount(){
+    componentDidMount() {
+        //laod data when navigated from another screen
+        this.focusListener = this.props.navigation.addListener('focus', () => { 
+            this.makeRemoteRequest();
+            }
+        );
+
         this.onRefresh();
         this.makeRemoteRequest();
-    }
+      }
 
     makeRemoteRequest = () => {
-
         return fetch('http://aeropolyplast.eu/api/displayAll')
         .then( (response) => response.json() ) 
         .then( (responseJson) => {
-
             this.setState({
                 isLoading:false,
                 dataSource: responseJson,
@@ -37,6 +41,7 @@ export default class HomeScreen extends React.Component {
     } //end of custom remote request 
 
 
+    //search flatlist
     search = (searchQuery) => {
         this.setState({searchQuery: searchQuery});
         let filteredData = this.state.dataSource.filter(function (item) {
@@ -51,7 +56,6 @@ export default class HomeScreen extends React.Component {
       }
 
     render() {
-
         //on load dispaly acticvity indicator
         if(this.state.isLoading){
             return (
@@ -130,8 +134,6 @@ const styles = StyleSheet.create({
         marginBottom:'5%',
     },
 
-
-
     itemText:{
         flex: 3,
         fontSize: 15,
@@ -143,27 +145,5 @@ const styles = StyleSheet.create({
         justifyContent:'space-evenly',
         marginLeft:'2%',
         
-    },
-
-    unosTexta: {
-        backgroundColor: '#FFFFFF',
-        width: '80%',
-        marginRight: '20%',
-        borderWidth:1,
-        borderColor: 'grey',
-        borderRadius:10,
-        height:40,
-        textAlign:'center',
-        marginTop:'10%',
-        marginBottom:'20%'
-    },
-
-    searchButton:{
-        backgroundColor:'green',
-        color:'white',
-        width:'20%',
-        marginLeft:'80%',
-        
-    }
-    
+    },    
 });

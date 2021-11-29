@@ -102,7 +102,9 @@ import { Input } from 'react-native-elements';
               <TextInput style={styles.unosTexta}
                 multiline={false}
                 placeholder='NAZIV'
+                autoCapitalize = {"characters"}
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ naziv: text })}
                 ref={component => this._textInput = component}
                 value={this.state.naziv}
@@ -112,6 +114,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='IDENT'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ ident: text })}
                 ref={component => this._textInput = component}
                 value={this.state.ident}
@@ -122,6 +125,7 @@ import { Input } from 'react-native-elements';
                 placeholder='ZALOGA'
                 keyboardType='numeric'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ zaloga: text })}
                 ref={component => this._textInput = component}
                 value={this.state.zaloga}
@@ -132,6 +136,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='STEVILKA NAROCILA'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ stevilkaNarocila: text })}
                 ref={component => this._textInput = component}
                 value={this.state.stevilkaNarocila}
@@ -141,6 +146,7 @@ import { Input } from 'react-native-elements';
                 multiline={false}
                 placeholder='KOLICINA'
                 underlineColorAndroid='transparent'
+                autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ kolicina: text })}
                 ref={component => this._textInput = component}
                 value={this.state.kolicina}
@@ -272,8 +278,9 @@ const styles = StyleSheet.create({
       textAlign:'center',
       fontSize:20,
       paddingTop:10,
-      borderColor:'white',
+      borderColor:'#5d5d5d',
       borderWidth:1,
+      
 
   },
 
