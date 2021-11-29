@@ -29,6 +29,15 @@ import { Input } from 'react-native-elements';
       }
     }
 
+    clearDots($text){
+      return $text.replace(".","");
+    }
+
+    addDots($text){
+      var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+      return moneyDots;
+    }
+
 
     successNotification(){
       Alert.alert(
@@ -45,13 +54,11 @@ import { Input } from 'react-native-elements';
         ],
         { cancelable: false },
       );
-    }   
- 
+    }
+  
 
     //SLANJE PODATAKA 
     posalji(){
-
-
       if(this.state.lokacija1 == 0 ||  this.state.lokacija2 == 0 || this.state.lokacija3 == 0 || this.state.stevilkaNarocila == '' || this.state.zaloga == '' || this.state.ident == '' || this.state.naziv == '' || this.state.kolicina == ''){
         Alert.alert('Izberite vse podatke pred uvozom podatkov');
       } else {
@@ -82,9 +89,9 @@ import { Input } from 'react-native-elements';
             ident: '',
             zaloga: '',
             stevilkaNarocila: '',
-            lokacija1: '',
-            lokacija2: '',
-            lokacija3: '',
+            lokacija1: 0,
+            lokacija2: 0,
+            lokacija3: 0,
             kolicina: '',
 
           })
@@ -126,9 +133,9 @@ import { Input } from 'react-native-elements';
                 keyboardType='numeric'
                 underlineColorAndroid='transparent'
                 autoCapitalize = {"characters"}
-                onChangeText={(text) => this.setState({ zaloga: text })}
+                onChangeText={(text) => this.setState({ zaloga: this.clearDots(text) })}
                 ref={component => this._textInput = component}
-                value={this.state.zaloga}
+                value={this.addDots(this.state.zaloga.toString())}
               />
 
               
@@ -159,6 +166,7 @@ import { Input } from 'react-native-elements';
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija1: ItemValue })}
                 style={{ color: '#5d5d5d'}}
+                selectedValue={this.state.lokacija1}
               >
                 <Picker.Item label="Izberite prvo lokacijo" value="0" />
                 <Picker.Item label="I" value="I" />
@@ -183,6 +191,7 @@ import { Input } from 'react-native-elements';
                 placeholder="LOKACIJA 2"
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija2: ItemValue })}
+                selectedValue={this.state.lokacija2}
                 style={{ color: '#5d5d5d'}}
                 >
                 
@@ -217,6 +226,7 @@ import { Input } from 'react-native-elements';
                 placeholder="LOKACIJA 3"
                 note={false}
                 onValueChange={(ItemValue, itemIndex) => this.setState({ lokacija3: ItemValue })}
+                selectedValue={this.state.lokacija3}
                 style={{ color: '#5d5d5d'}}
                 >
 

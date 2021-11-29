@@ -8,6 +8,8 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import {Icon} from 'react-native-elements';
 
+import "intl";
+
 
 
 export default class ExportScreen extends React.Component{
@@ -117,11 +119,13 @@ export default class ExportScreen extends React.Component{
       );
     }
 
+    clearDots($text){
+      return $text.replace(".","");
+    }
 
-    format($value){
-      return new Intl.NumberFormat('en-IN', {
-      }).format($value);
-    
+    addDots($text){
+      var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+      return moneyDots;
     }
       
     render(){
@@ -164,7 +168,7 @@ export default class ExportScreen extends React.Component{
             <Text style={styles.exportHeaderText}>{'Ident: '}{this.props.route.params.ident}</Text>
             <Text style={styles.exportHeaderText}>{'Kolicina: '}{this.props.route.params.kolicina}</Text>
             <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacija1}{' '}{this.props.route.params.lokacija2}{' '}{this.props.route.params.lokacija3}</Text>
-            <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.props.route.params.zaloga}</Text>
+            <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.addDots(this.props.route.params.zaloga)}</Text>
           </View>
 
           <View style={styles.exportFormContainer}>
@@ -176,8 +180,8 @@ export default class ExportScreen extends React.Component{
                   underlineColorAndroid='transparent'
                   ref={component => this._textInput = component}
                   thousandSeparator={true}                                            
-                  onChangeText={(text) => this.setState({ exportValue: this.format(text) })}
-                  value={this.state.exportValue.toString()}
+                  onChangeText={(text) => this.setState({ exportValue: this.clearDots(text) })}
+                  value={this.addDots(this.state.exportValue.toString())}
 
 
 

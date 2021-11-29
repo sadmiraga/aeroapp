@@ -25,6 +25,16 @@ export default class ExportScreen extends React.Component{
   }
 
 
+  clearDots($text){
+    return $text.replace(".","");
+  }
+
+  addDots($text){
+    var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+    return moneyDots;
+  }
+
+
     successNotification = () => {
       Alert.alert(
         'Uspešno',
@@ -71,16 +81,16 @@ export default class ExportScreen extends React.Component{
           <View style={styles.exportFormContainer}>
           <View style={styles.importHeader}>
             <Text style={styles.headingText}>{'naziv: '}{this.state.naziv}</Text>
-            <Text style={styles.headingText}>{'zaloga: '}{this.state.zaloga}</Text>
+            <Text style={styles.headingText}>{'zaloga: '}{this.addDots(this.state.zaloga)}</Text>
           </View>
             <TextInput style={styles.unosZaloge}
                   multiline={false}
                   placeholder='Vrednost uvoza'
                   keyboardType='numeric'
                   underlineColorAndroid='transparent'
-                  onChangeText={(text) => this.setState({ importValue: text })}
+                  onChangeText={(text) => this.setState({ importValue: this.clearDots(text) })}
                   ref={component => this._textInput = component}
-                  value={this.state.importValue.toString()}
+                  value={this.addDots(this.state.importValue.toString())}
             />
 
             

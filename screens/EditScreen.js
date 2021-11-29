@@ -25,6 +25,15 @@ console.disableYellowBox = true;
       }
     }
 
+    addDots($text){
+      var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+      return moneyDots;
+    }
+
+    clearDots($text){
+      return $text.replace(".","");
+    }
+
 
     successNotification(){
       Alert.alert(
@@ -105,9 +114,9 @@ console.disableYellowBox = true;
                 keyboardType='numeric'
                 underlineColorAndroid='transparent'
                 autoCapitalize = {"characters"}
-                onChangeText={(text) => this.setState({ zaloga: text })}
+                onChangeText={(text) => this.setState({ zaloga: this.clearDots(text) })}
                 ref={component => this._textInput = component}
-                value={this.state.zaloga}
+                value={this.addDots(this.state.zaloga.toString())}
               />
 
               

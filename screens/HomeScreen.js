@@ -14,6 +14,11 @@ export default class HomeScreen extends React.Component {
         }
     }
 
+    addDots($text){
+        var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        return moneyDots;
+      }
+
     componentDidMount() {
         //laod data when navigated from another screen
         this.focusListener = this.props.navigation.addListener('focus', () => { 
@@ -45,7 +50,7 @@ export default class HomeScreen extends React.Component {
     search = (searchQuery) => {
         this.setState({searchQuery: searchQuery});
         let filteredData = this.state.dataSource.filter(function (item) {
-          return item.naziv.includes(searchQuery.toLowerCase()) || item.stevilkaNarocila.includes(searchQuery.toLowerCase()) || item.ident.includes(searchQuery.toLowerCase());
+          return item.naziv.includes(searchQuery.toUpperCase()) || item.stevilkaNarocila.includes(searchQuery.toUpperCase()) || item.ident.includes(searchQuery.toUpperCase());
         });
         this.setState({filteredData: filteredData});
       };
@@ -97,7 +102,7 @@ export default class HomeScreen extends React.Component {
                                 <Text  style={styles.itemText}>{item.ident}</Text>
                                 <Text  style={styles.itemText}>{item.stevilkaNarocila}</Text>
                                 <Text style={styles.itemText}>{item.lokacija1}{' '}{item.lokacija2}{' '}{item.lokacija3}</Text>
-                                <Text style={styles.itemText}>{item.zaloga}</Text>    
+                                <Text style={styles.itemText}>{this.addDots(item.zaloga)}</Text>    
                             </View>
                             </TouchableOpacity> 
 

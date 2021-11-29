@@ -14,6 +14,11 @@ export default class IdentsScreen extends React.Component {
         }
     }
 
+    addDots($text){
+        var moneyDots = $text.toString().replace(/(\d)(?=(\d\d\d)+(?!\d))/g, "$1.");
+        return moneyDots;
+    }
+
     componentDidMount(){
         this.focusListener = this.props.navigation.addListener('focus', () => { 
             this.makeRemoteRequest();
@@ -45,7 +50,7 @@ export default class IdentsScreen extends React.Component {
     search = (searchQuery) => {
         this.setState({searchQuery: searchQuery});
         let filteredData = this.state.dataSource.filter(function (item) {
-          return item.naziv.includes(searchQuery.toLowerCase());
+          return item.naziv.includes(searchQuery.toUpperCase());
         });
         this.setState({filteredData: filteredData});
       };
@@ -90,7 +95,7 @@ export default class IdentsScreen extends React.Component {
  
                             <View style={styles.item}>
                                 <Text  style={styles.itemText}>{item.naziv}</Text>
-                                <Text  style={styles.itemText}>{item.zaloga}</Text>
+                                <Text  style={styles.itemText}>{this.addDots(item.zaloga)}</Text>
                             
 
                             </View>
