@@ -21,39 +21,99 @@ export default class ExportScreen extends React.Component{
   }
 
 
+    successDeleteNotification = () => {
+      Alert.alert(
+        'Uspešno',
+        "Uspešno ste izbrisali izdelek: "+this.props.route.params.naziv,
+        [
+            { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
+        ],
+        { cancelable: false },
+      );      
+    }
+
     successNotification = () => {
       Alert.alert(
         'Uspešno',
-        "Uspešno ste posodobili zalogo za izdelek: "+this.props.route.params.naziv,
+        "Uspešno ste posodobili zalogo za izdelek "+this.props.route.params.naziv,
         [
             { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
-            //MeHome
         ],
         { cancelable: false },
-      );
-      
+      );      
     }
 
 
+    //EXPORT
+    async export(){
+      try{
+        const response = await fetch('http://aeropolyplast.eu/api/export', {
+          'method': 'POST',
+          'headers': {
+            'Accept':'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            'id': this.state.productID,
+            'vrednostIzvoza': this.state.exportValue,
+          })
 
-    export(){
-      fetch('http://aeropolyplast.eu/api/export', {
+        });
+          if (200 === response.status){
+            this.setState({
+              exportValue: 0,
+            })
+            this.successNotification();
+          } else {
+            alert('neuspešno');
+          }
 
-        'method': 'POST',
-        'headers': {
-          'Accept':'application/json',
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          'id': this.state.productID,
-          'vrednostIzvoza': this.state.exportValue,
-        })
+       } catch (e) {
+        if ('string' === typeof e) {
+            throw e;
+        }
+        throw 'Unknown error';
+      } 
+    }
 
-      })
-      this.setState({
-        exportValue: 0,
-      })
-      this.successNotification();
+    //DELETE
+    async delete(){
+      try{
+        const response = await fetch('http://aeropolyplast.eu/api/deleteProduct', {
+          'method': 'POST',
+          'headers': {
+            'Accept':'application/json',
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({
+            'id': this.state.productID,
+          })
+        });
+
+        if (200 === response.status){
+          this.successDeleteNotification();
+        } else {
+          alert('neuspešno');
+        }
+          } catch (e) {
+            if ('string' === typeof e) {
+                throw e;
+            }
+            throw 'Unknown error';
+          } 
+    } //end of delete
+
+
+    areYouSure(){
+      Alert.alert(
+        'Uspešno',
+        "Ali ste prepičani da želite izbrisati izdelek: : "+this.props.route.params.naziv,
+        [
+            { text: 'Ja', onPress: () => this.delete() },
+            //MeHome
+        ],
+        { cancelable: true },
+      );
     }
 
       
@@ -63,20 +123,32 @@ export default class ExportScreen extends React.Component{
         <ScrollView>
 
           <View style={styles.buttonsContainer}>
+            <TouchableOpacity onPress={() => this.areYouSure()}>
+                          <View style={styles.button}><Icon name='trash-outline' type='ionicon' color='#5d5d5d' /></View>
+            </TouchableOpacity>
 
-          <TouchableOpacity onPress={() => this.export()}>
-                        <View style={styles.button}><Icon name='trash-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
+            
+            <TouchableOpacity onPress={() => this.props.navigation.navigate
+                              ('Import', 
+                              { id: this.state.productID,
+                              naziv:this.props.route.params.naziv,
+                              })}>
+                      <View style={styles.button}><Icon name='add-outline' type='ionicon' color='#5d5d5d' /></View>
+            </TouchableOpacity>
 
-          
-              <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Import', { id: this.state.productID,naziv:this.state.naziv })}>
-                        <View style={styles.button}><Icon name='add-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
-
-              <TouchableOpacity onPress={() => this.export()}>
-                        <View style={styles.button}><Icon name='create-outline' type='ionicon' color='#5d5d5d' /></View>
-              </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate
+                              ('Edit', { id: this.state.productID,
+                                        naziv:this.props.route.params.naziv,
+                                        ident:this.props.route.params.ident,
+                                        kolicina:this.props.route.params.kolicina,
+                                        lokacija1:this.props.route.params.lokacija1,
+                                        lokacija2:this.props.route.params.lokacija2,
+                                        lokacija3:this.props.route.params.lokacija3,
+                                        zaloga:this.props.route.params.zaloga,
+                                        stevilkaNarocila:this.props.route.params.stevilkaNarocila,
+                                          })}>
+                      <View style={styles.button}><Icon name='create-outline' type='ionicon' color='#5d5d5d' /></View>
+            </TouchableOpacity>
           </View>
 
           <View style={styles.ExportHeader}>
@@ -98,9 +170,6 @@ export default class ExportScreen extends React.Component{
                   ref={component => this._textInput = component}
                   value={this.state.exportValue.toString()}
             />
-
-            
-
               <TouchableOpacity onPress={() => this.export()}>
                         <Text style={styles.posaljiDugme}> IZVOZ </Text>
               </TouchableOpacity>

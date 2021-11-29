@@ -16,7 +16,7 @@ export default class ExportScreen extends React.Component{
     super(props);
     this.state={
       productID: this.props.route.params.id,
-      
+      naziv: this.props.route.params.naziv,
       importValue: 0,
       isLoading: true,
 
@@ -27,7 +27,7 @@ export default class ExportScreen extends React.Component{
     successNotification = () => {
       Alert.alert(
         'Uspešno',
-        "Uspešno ste posodobili zalogo za izdelek: ",
+        "Uspešno ste posodobili zalogo za izdelek: "+this.state.naziv,
         [
             { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
             //MeHome
@@ -64,7 +64,11 @@ export default class ExportScreen extends React.Component{
       return (
         
         <ScrollView>
+
+          
+
           <View style={styles.exportFormContainer}>
+          <View style={styles.importHeader}><Text style={styles.headingText}>{this.state.naziv}</Text></View>
             <TextInput style={styles.unosZaloge}
                   multiline={false}
                   placeholder='Vrednost izvoza'
@@ -92,6 +96,18 @@ export default class ExportScreen extends React.Component{
 
 const styles = StyleSheet.create({
 
+  headingText:{
+    textAlign:'center',
+  },
+
+  importHeader:{
+    width:'70%',
+    marginRight:'15%',
+    marginLeft:'15%',
+    padding:'3%',
+    borderWidth:1,
+    borderRadius:10,
+  },
     exportFormContainer:{
         marginTop:'50%',
     },

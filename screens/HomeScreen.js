@@ -87,7 +87,7 @@ export default class HomeScreen extends React.Component {
                         renderItem={({ item }) => (
  
                             <TouchableOpacity onPress={() => this.props.navigation.navigate
-                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocilla,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga,kolicina:item.kolicina })}>
+                                ('Export', { id: item.id.toString(), naziv: item.naziv,ident:item.ident,stevilkaNarocila:item.stevilkaNarocila,lokacija1:item.lokacija1,lokacija2:item.lokacija2, lokacija3:item.lokacija3,zaloga:item.zaloga,kolicina:item.kolicina })}>
                             <View style={styles.item}>
                                 <Text  style={styles.itemText}>{item.naziv}</Text>
                                 <Text  style={styles.itemText}>{item.ident}</Text>
@@ -120,12 +120,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         flexDirection:'row',
         justifyContent:'space-evenly',
-        backgroundColor: 'transparent',
-        borderTopWidth:1,
+        backgroundColor: 'white',
+        borderWidth:1,
         borderColor:'#5d5d5d',
+        borderRadius:10,
         height:80,
         marginRight:'2%',
         marginLeft:'2%',
+        marginBottom:'5%',
     },
 
 
