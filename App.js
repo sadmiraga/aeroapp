@@ -38,22 +38,7 @@ export default function App() {
     <NavigationContainer>
       <Tab.Navigator>
 
-    
-                
-        <Tab.Screen
-          name="IZDELKI"
-          component={ProductStackScreen}
-          
-          options={{
-            tabBarLabel: 'IZDELKI',
-            headerShown:false,
-            tabBarIcon: ({ color, size }) => (
-              <Ionicons name="cube-outline" color={color} size={size} />
-            ),
-          }}
-        />
-
-        <Tab.Screen
+      <Tab.Screen
           name="IDENTI"
           component={IdentsScreen}
           options={{
@@ -76,6 +61,23 @@ export default function App() {
             ),
           }}
         />
+                
+        <Tab.Screen
+          name="IZDELKI"
+          component={ProductStackScreen}
+          
+          options={{
+            tabBarLabel: 'IZDELKI',
+            headerShown:false,
+            tabBarIcon: ({ color, size }) => (
+              <Ionicons name="cube-outline" color={color} size={size} />
+            ),
+          }}
+        />
+
+
+
+
 
 
       </Tab.Navigator>

@@ -166,7 +166,7 @@ export default class ExportScreen extends React.Component{
           <View style={styles.ExportHeader}>
             <Text style={styles.exportHeaderText}>{'Naziv: '}{this.props.route.params.naziv}</Text>
             <Text style={styles.exportHeaderText}>{'Ident: '}{this.props.route.params.ident}</Text>
-            <Text style={styles.exportHeaderText}>{'Kolicina: '}{this.props.route.params.kolicina}</Text>
+            <Text style={styles.exportHeaderText}>{'Opis: '}{this.props.route.params.kolicina}</Text>
             <Text style={styles.exportHeaderText}>{'Lokacija: '}{this.props.route.params.lokacija1}{' '}{this.props.route.params.lokacija2}{' '}{this.props.route.params.lokacija3}</Text>
             <Text style={styles.exportHeaderText}>{'Zaloga: '}{this.addDots(this.props.route.params.zaloga)}</Text>
           </View>

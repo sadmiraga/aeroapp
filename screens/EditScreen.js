@@ -41,8 +41,8 @@ console.disableYellowBox = true;
         "Uspešno ste posodobili izdelek: \n naziv = "+this.state.naziv
         +"\n ident = "+this.state.ident
         +"\n stevilka narocila = "+this.state.stevilkaNarocila
-        +"\n zaloga = "+this.state.kolicina
         +"\n zaloga = "+this.state.zaloga
+        +"\n Opis = "+this.state.kolicina
         +"\n lokacija = "+this.state.lokacija1+" "+this.state.lokacija2+" "+this.state.lokacija3,
         [
             { text: 'Ok', onPress: () => this.props.navigation.navigate('Home') },
@@ -132,7 +132,7 @@ console.disableYellowBox = true;
 
               <TextInput style={styles.unosTexta}
                 multiline={false}
-                placeholder='KOLICINA'
+                placeholder='OPIS'
                 underlineColorAndroid='transparent'
                 autoCapitalize = {"characters"}
                 onChangeText={(text) => this.setState({ kolicina: text })}
