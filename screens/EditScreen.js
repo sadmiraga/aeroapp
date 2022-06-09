@@ -158,7 +158,7 @@ console.disableYellowBox = true;
                 <Picker.Item label="VI" value="VI" />
                 <Picker.Item label="VII" value="VII" />
                 <Picker.Item label="VIII" value="VIII" />
-                <Picker.Item label="IX" value="IV" />
+                <Picker.Item label="IX" value="IX" />
                 <Picker.Item label="X" value="X" />
                 <Picker.Item label="XI" value="XI" />
                 <Picker.Item label="XII" value="XII" />
