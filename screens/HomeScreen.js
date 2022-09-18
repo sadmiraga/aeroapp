@@ -19,6 +19,8 @@ export default class HomeScreen extends React.Component {
         return moneyDots;
       }
 
+      
+
     componentDidMount() {
         //laod data when navigated from another screen
         this.focusListener = this.props.navigation.addListener('focus', () => { 

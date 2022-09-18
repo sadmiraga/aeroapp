@@ -38,6 +38,14 @@ import { Input } from 'react-native-elements';
       return moneyDots;
     }
 
+    removeLocation(){
+      this.setState({
+        lokacija1: '-',
+        lokacija2: '-',
+        lokacija3: '-',
+      })
+    }
+
 
     successNotification(){
       Alert.alert(
@@ -159,6 +167,11 @@ import { Input } from 'react-native-elements';
                 value={this.state.kolicina}
               />
 
+
+              <TouchableOpacity onPress={() => this.removeLocation()}>
+                        <Text style={styles.removeLocationButton}> BREZ LOKACIJE </Text>
+              </TouchableOpacity>
+
               <View style={styles.dropDownMeni}>
               <Picker
                 mode="dropdown"
@@ -169,6 +182,7 @@ import { Input } from 'react-native-elements';
                 selectedValue={this.state.lokacija1}
               >
                 <Picker.Item label="Izberite prvo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item label="I" value="I" />
                 <Picker.Item label="II" value="II" />
                 <Picker.Item label="III" value="III" />
@@ -196,6 +210,7 @@ import { Input } from 'react-native-elements';
                 >
                 
                 <Picker.Item label="Izberite drugo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item selected  label="1" value="1" />
                 <Picker.Item label="2" value="2" />
                 <Picker.Item label="3" value="3" />
@@ -231,6 +246,7 @@ import { Input } from 'react-native-elements';
                 >
 
                 <Picker.Item label="Izberite tretjo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item label="a" value="a" />
                 <Picker.Item label="b" value="b" />
                 <Picker.Item label="c" value="c" />
@@ -290,8 +306,24 @@ const styles = StyleSheet.create({
       paddingTop:10,
       borderColor:'#5d5d5d',
       borderWidth:1,
-      
+  },
 
+  removeLocationButton:{
+    width:'35%',
+    marginRight:'15%',
+    marginLeft:'50%',
+    backgroundColor: '#808080',
+    color:'white',
+    marginTop:'10%',
+    height:35,
+    borderRadius:10,
+    alignContent:'center',
+    textAlign:'center',
+    fontSize:10,
+    paddingTop:10,
+    paddingBottom:5,
+    borderColor:'#5d5d5d',
+    borderWidth:1,
   },
 
   dropDownMeni: {

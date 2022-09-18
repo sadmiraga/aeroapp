@@ -30,6 +30,14 @@ console.disableYellowBox = true;
       return moneyDots;
     }
 
+    removeLocation(){
+      this.setState({
+        lokacija1: '-',
+        lokacija2: '-',
+        lokacija3: '-',
+      })
+    }
+
     clearDots($text){
       return $text.replace(".","");
     }
@@ -140,6 +148,10 @@ console.disableYellowBox = true;
                 value={this.state.kolicina}
               />
 
+              <TouchableOpacity onPress={() => this.removeLocation()}>
+                        <Text style={styles.removeLocationButton}> BREZ LOKACIJE </Text>
+              </TouchableOpacity>
+
               <View style={styles.dropDownMeni}>
               <Picker
                 mode="dropdown"
@@ -150,6 +162,7 @@ console.disableYellowBox = true;
                 style={{ color: '#5d5d5d'}}
               >
                 <Picker.Item label="Izberite prvo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item label="I" value="I" />
                 <Picker.Item label="II" value="II" />
                 <Picker.Item label="III" value="III" />
@@ -177,6 +190,7 @@ console.disableYellowBox = true;
                 >
                 
                 <Picker.Item label="Izberite drugo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item selected  label="1" value="1" />
                 <Picker.Item label="2" value="2" />
                 <Picker.Item label="3" value="3" />
@@ -212,6 +226,7 @@ console.disableYellowBox = true;
                 >
 
                 <Picker.Item label="Izberite tretjo lokacijo" value="0" />
+                <Picker.Item label="Brez lokacije" value="-" />
                 <Picker.Item label="A" value="A" />
                 <Picker.Item label="B" value="B" />
                 <Picker.Item label="C" value="C" />
@@ -268,6 +283,24 @@ const styles = StyleSheet.create({
       paddingTop:10,
       borderColor:'#5d5d5d',
       borderWidth:1,
+  },
+
+  removeLocationButton:{
+    width:'35%',
+    marginRight:'15%',
+    marginLeft:'50%',
+    backgroundColor: '#808080',
+    color:'white',
+    marginTop:'10%',
+    height:35,
+    borderRadius:10,
+    alignContent:'center',
+    textAlign:'center',
+    fontSize:10,
+    paddingTop:10,
+    paddingBottom:5,
+    borderColor:'#5d5d5d',
+    borderWidth:1,
   },
 
   dropDownMeni: {
